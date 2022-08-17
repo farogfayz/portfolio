@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>/projects/automated-image-captioning/</loc>
+  </url><url>
+    <loc>/projects/face-landmarks-detection/</loc>
+  </url><url>
+    <loc>/tags/ai/</loc>
+  </url><url>
+    <loc>/categories/</loc>
+  </url><url>
+    <loc>/tags/cnn/</loc>
+  </url><url>
+    <loc>/tags/crnn/</loc>
+  </url><url>
+    <loc>/tags/dl/</loc>
+  </url><url>
+    <loc>/</loc>
+  </url><url>
+    <loc>/tags/lstm/</loc>
+  </url><url>
+    <loc>/projects/</loc>
+  </url><url>
+    <loc>/tags/python/</loc>
+  </url><url>
+    <loc>/tags/pytorch/</loc>
+  </url><url>
+    <loc>/search/</loc>
+  </url><url>
+    <loc>/tags/</loc>
+  </url>
+</urlset>
