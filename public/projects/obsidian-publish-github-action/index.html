@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Obsidian Publish using GitHub Action | Abdur Rahman</title>
+<meta name="keywords" content="AWS, RegEx, MkDocs, GitHub Action, Docker, Bash, TypeScript, Node.JS">
+<meta name="description" content="A custom GitHub Action to publish Obsidian notes as a website">
+<meta name="author" content="">
+<link rel="canonical" href="//localhost:1313/projects/obsidian-publish-github-action/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.min.2b833c6baa7a96407c2417c7a4049985b42c21cccc2472abf4603967eafd2273.css" integrity="sha256-K4M8a6p6lkB8JBfHpASZhbQsIczMJHKr9GA5Z&#43;r9InM=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.min.30d2332871da51f600f574811c17751e6c862577d450b624f86e2bc8a6e31221.js" integrity="sha256-MNIzKHHaUfYA9XSBHBd1HmyGJXfUULYk&#43;G4ryKbjEiE="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="//localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="//localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="//localhost:1313/favicon-32x32.png">
+<link rel="apple-touch-icon" href="//localhost:1313/apple-touch-icon.png">
+<link rel="mask-icon" href="//localhost:1313/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="//localhost:1313/projects/obsidian-publish-github-action/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="Obsidian Publish using GitHub Action" />
+<meta property="og:description" content="A custom GitHub Action to publish Obsidian notes as a website" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="//localhost:1313/projects/obsidian-publish-github-action/" />
+<meta property="og:image" content="//localhost:1313/projects/obsidian-publish-github-action/cover.jpg" /><meta property="article:section" content="projects" />
+
+
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="//localhost:1313/projects/obsidian-publish-github-action/cover.jpg" />
+<meta name="twitter:title" content="Obsidian Publish using GitHub Action"/>
+<meta name="twitter:description" content="A custom GitHub Action to publish Obsidian notes as a website"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Projects",
+      "item": "//localhost:1313/projects/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Obsidian Publish using GitHub Action",
+      "item": "//localhost:1313/projects/obsidian-publish-github-action/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Obsidian Publish using GitHub Action",
+  "name": "Obsidian Publish using GitHub Action",
+  "description": "A custom GitHub Action to publish Obsidian notes as a website",
+  "keywords": [
+    "AWS", "RegEx", "MkDocs", "GitHub Action", "Docker", "Bash", "TypeScript", "Node.JS"
+  ],
+  "articleBody": "Intro In my video about How I cleared the AWS SAA Certification Exam, I shared my preparation strategy as well as tips to ace the exam. I also gave a glimpse of my revision notes that I prepared while taking the course and practice exams on Udemy. After that video was out, I got so many comments and DMs, requesting me to share my notes, but the problem was that I took these notes using a note-taking app called Obsidian which stores them in markdown format locally on my Mac. Once I’m done editing my notes, I push them to a GitHub repository to make sure I don’t lose them if my laptop breaks.\nSo, if you want to view my notes exactly like I do, you can clone my Obsidian Vault repository and download Obsidian to render it. But, this solution isn’t elegant as it would require you to download an additional software. So, I along with my college roommate, Sarthak Narayan, had been working over the past 2 weeks on the project, Obsidian Publish using GitHub Action, which would allow us to effortlessly publish our notes as a static website.\nIt is complete and I’ve used it to publish my notes at notes.arkalim.org. Working The GitHub Action spins up a Docker container which parses and converts Obsidian markdown notes into a special markdown format understood by MkDocs, an open-source static site generator. MkDocs is actually meant for preparing documentations but works well for notes too. After the markdown files have been converted, all the images in my notes are compressed to a fraction of their original size so that they can load quickly in your web browser. A static site is then built using MkDocs and then finally deployed on Netlify. All of this happens automatically using GitHub Actions. All I have to do is update my notes and push the changes to GitHub.\nFinal thoughts Having an automated way to publish your notes online with the community is a powerful way to share knowledge. This project has also made it exceedingly easy for me to refer my notes from anywhere, which is powerful when you work on a lot of systems.\nResources My Notes Obsidian Publish - GitHub Action Parser and Image Compressor MkDocs - Material Theme ",
+  "wordCount" : "380",
+  "inLanguage": "en",
+  "image":"//localhost:1313/projects/obsidian-publish-github-action/cover.jpg","datePublished": "0001-01-01T00:00:00Z",
+  "dateModified": "0001-01-01T00:00:00Z",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "//localhost:1313/projects/obsidian-publish-github-action/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Abdur Rahman",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "//localhost:1313/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header sticky-header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="//localhost:1313/" accesskey="h" title="Abdur Rahman (Alt + H)">Abdur Rahman</a>
+            <span class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+                <ul class="lang-switch"><li>|</li>
+                </ul>
+            </span>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="//localhost:1313/" title="Home">
+                    <span>Home</span>
+                </a>
+            </li>
+            <li>
+                <a href="//localhost:1313/blog" title="Blog">
+                    <span>Blog</span>
+                </a>
+            </li>
+            <li>
+                <a href="//localhost:1313/projects" title="Projects">
+                    <span>Projects</span>
+                </a>
+            </li>
+            <li>
+                <a href="//localhost:1313/experience" title="Experience">
+                    <span>Experience</span>
+                </a>
+            </li>
+            <li>
+                <a href="//localhost:1313/search" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="//localhost:1313/">Home</a>&nbsp;»&nbsp;<a href="//localhost:1313/projects/">Projects</a></div>
+    <h1 class="post-title">
+      Obsidian Publish using GitHub Action
+    </h1>
+    <div class="post-description">
+      A custom GitHub Action to publish Obsidian notes as a website
+    </div>
+    <div class="post-meta">
+
+
+June 2022
+
+</div>
+  </header> 
+<figure class="entry-cover"><img loading="lazy" src="//localhost:1313/projects/obsidian-publish-github-action/cover.jpg" alt="">
+        
+</figure><div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">‎ Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#intro" aria-label="Intro">Intro</a></li>
+                <li>
+                    <a href="#working" aria-label="Working">Working</a></li>
+                <li>
+                    <a href="#final-thoughts" aria-label="Final thoughts">Final thoughts</a></li>
+                <li>
+                    <a href="#resources" aria-label="Resources">Resources</a>
+                </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><h2 id="intro">Intro<a hidden class="anchor" aria-hidden="true" href="#intro">#</a></h2>
+<p>In my video about <a href="https://arkalim.org/blog/aws-saa-certification/"><strong>How I cleared the AWS SAA Certification Exam</strong></a>, I shared my preparation strategy as well as tips to ace the exam. I also gave a glimpse of my revision notes that I prepared while taking the course and practice exams on Udemy. After that video was out, I got so many comments and DMs, requesting me to share my notes, but the problem was that I took these notes using a note-taking app called Obsidian which stores them in markdown format locally on my Mac. Once I&rsquo;m done editing my notes, I push them to a GitHub repository to make sure I don&rsquo;t lose them if my laptop breaks.</p>
+<p><img loading="lazy" src="/projects/obsidian-publish-github-action/img1.jpg" alt="my notes"  />
+</p>
+<p>So, if you want to view my notes exactly like I do, you can clone my <a href="https://github.com/arkalim/obsidian-vault"><strong>Obsidian Vault</strong></a> repository and download <strong>Obsidian</strong> to render it. But, this solution isn&rsquo;t elegant as it would require you to download an additional software. So, I along with my college roommate, <a href="https://sarthaknarayan.tech/"><strong>Sarthak Narayan</strong></a>, had been working over the past 2 weeks on the project, <a href="https://github.com/project-cool/obsidian-publish-action"><strong>Obsidian Publish using GitHub Action</strong></a>, which would allow us to effortlessly publish our notes as a static website.</p>
+<p>It is complete and I&rsquo;ve used it to publish my notes at <a href="https://notes.arkalim.org"><strong>notes.arkalim.org</strong></a>.
+<img loading="lazy" src="/projects/obsidian-publish-github-action/img2.jpg" alt="published notes"  />
+</p>
+<h2 id="working">Working<a hidden class="anchor" aria-hidden="true" href="#working">#</a></h2>
+<p>The <strong>GitHub Action</strong> spins up a <strong>Docker</strong> container which parses and converts Obsidian markdown notes into a special markdown format understood by <strong>MkDocs</strong>, an open-source static site generator. MkDocs is actually meant for preparing documentations but works well for notes too. After the markdown files have been converted, all the images in my notes are compressed to a fraction of their original size so that they can load quickly in your web browser. A static site is then built using MkDocs and then finally deployed on <strong>Netlify</strong>. All of this happens automatically using <strong>GitHub Actions</strong>. All I have to do is update my notes and push the changes to GitHub.</p>
+<h2 id="final-thoughts">Final thoughts<a hidden class="anchor" aria-hidden="true" href="#final-thoughts">#</a></h2>
+<p>Having an automated way to publish your notes online with the community is a powerful way to share knowledge. This project has also made it exceedingly easy for me to refer my notes from anywhere, which is powerful when you work on a lot of systems.</p>
+<h2 id="resources">Resources<a hidden class="anchor" aria-hidden="true" href="#resources">#</a></h2>
+<ul>
+<li><a href="https://notes.arkalim.org">My Notes</a></li>
+<li><a href="https://github.com/project-cool/obsidian-publish-action">Obsidian Publish - GitHub Action</a></li>
+<li><a href="https://github.com/project-cool/obsidian-to-mkdocs">Parser and Image Compressor</a></li>
+<li><a href="https://squidfunk.github.io/mkdocs-material/">MkDocs - Material Theme</a></li>
+</ul>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="//localhost:1313/tags/aws/">AWS</a></li>
+      <li><a href="//localhost:1313/tags/regex/">RegEx</a></li>
+      <li><a href="//localhost:1313/tags/mkdocs/">MkDocs</a></li>
+      <li><a href="//localhost:1313/tags/github-action/">GitHub Action</a></li>
+      <li><a href="//localhost:1313/tags/docker/">Docker</a></li>
+      <li><a href="//localhost:1313/tags/bash/">Bash</a></li>
+      <li><a href="//localhost:1313/tags/typescript/">TypeScript</a></li>
+      <li><a href="//localhost:1313/tags/node.js/">Node.JS</a></li>
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2024 <a href="//localhost:1313/">Abdur Rahman</a></span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

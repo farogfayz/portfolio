@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Principal Component Analysis - Visualized | Abdur Rahman</title>
+<meta name="keywords" content="ML, AI, Python, PCA, Data Compression">
+<meta name="description" content="Data compression using Principal Component Analysis (PCA)">
+<meta name="author" content="">
+<link rel="canonical" href="//localhost:1313/blog/pca-visualized/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.min.2b833c6baa7a96407c2417c7a4049985b42c21cccc2472abf4603967eafd2273.css" integrity="sha256-K4M8a6p6lkB8JBfHpASZhbQsIczMJHKr9GA5Z&#43;r9InM=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.min.30d2332871da51f600f574811c17751e6c862577d450b624f86e2bc8a6e31221.js" integrity="sha256-MNIzKHHaUfYA9XSBHBd1HmyGJXfUULYk&#43;G4ryKbjEiE="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="//localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="//localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="//localhost:1313/favicon-32x32.png">
+<link rel="apple-touch-icon" href="//localhost:1313/apple-touch-icon.png">
+<link rel="mask-icon" href="//localhost:1313/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="//localhost:1313/blog/pca-visualized/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="Principal Component Analysis - Visualized" />
+<meta property="og:description" content="Data compression using Principal Component Analysis (PCA)" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="//localhost:1313/blog/pca-visualized/" />
+<meta property="og:image" content="//localhost:1313/blog/pca-visualized/cover.jpg" /><meta property="article:section" content="blog" />
+
+
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="//localhost:1313/blog/pca-visualized/cover.jpg" />
+<meta name="twitter:title" content="Principal Component Analysis - Visualized"/>
+<meta name="twitter:description" content="Data compression using Principal Component Analysis (PCA)"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Blogs",
+      "item": "//localhost:1313/blog/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Principal Component Analysis - Visualized",
+      "item": "//localhost:1313/blog/pca-visualized/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Principal Component Analysis - Visualized",
+  "name": "Principal Component Analysis - Visualized",
+  "description": "Data compression using Principal Component Analysis (PCA)",
+  "keywords": [
+    "ML", "AI", "Python", "PCA", "Data Compression"
+  ],
+  "articleBody": "Introduction If you have ever taken an online course on Machine Learning, you must have come across Principal Component Analysis for dimensionality reduction, or in simple terms, for compression of data. Guess what, I had taken such courses too but I never really understood the graphical significance of PCA because all I saw was matrices and equations. It took me quite a lot of time to understand this concept from various sources. So, I decided to compile it all in one place.\nIn this article, we will take a visual (graphical) approach to understand PCA and how it can be used to compress data. Basic knowledge of Linear Algebra and Matrices is assumed. If you are new to this concept, just follow along, I have tried my best to keep this as simple as possible.\nThese days, datasets containing a large number of dimensions are increasingly common and are often difficult to interpret. One example can be a database of face photographs of let’s say, 1,000,000 people. If each face photograph has a dimension of 100x100, then the data of each face is 10000 dimensional (there are 100x100 = 10,000 unique values to be stored for each face). Now, if 1 byte is required to store the information of each pixel, then 10,000 bytes are required to store 1 face. Since there are 1000 faces in the database,10,000 x 1,000,000 = 10 GB will be needed to store the dataset.\nPrincipal component analysis (PCA) is a technique for reducing the dimensionality of such datasets, exploiting the fact that the images in these datasets have something in common. For instance, in a dataset consisting of face photographs, each photograph will have facial features like eyes, nose, mouth. Instead of encoding this information pixel by pixel, we could make a template of each type of these features and then just combine these templates to generate any face in the dataset. In this approach, each template will still be 100x100 = 1000 dimensional, but since we will be reusing these templates (basis functions) to generate each face in the dataset, the number of templates required will be very small. PCA does exactly this.\nHow does PCA work? This part is going to be a bit technical, so bear with me! I will try to explain the working of PCA with a simple example. Let’s consider the data shown below containing 100 points each 2 dimensional (x \u0026 y coordinates is needed to represent each point).\nCurrently, we are using 2 values to represent each point. Let’s explain this situation in a more technical way. We are currently using 2 basis functions,x as (1, 0) and y as (0, 1). Each point in the dataset is represented as a weighted sum of these basis functions. For instance, point (2, 3) can be represented as 2(1, 0) + 3(0, 1) = (2, 3). If we omit either of these basis functions, we will not be able to represent the points in the dataset accurately. Therefore, both the dimensions necessary, and we can’t just drop one of them to reduce the storage requirement. This set of basis functions is actually the cartesian coordinate in 2 dimensions.\nIf we notice closely, we can very well see that the data approximates a line as shown by the red line below.\nNow, let’s rotate the coordinate system such that the x-axis lies along the red line. Then, the y-axis (green line) will be perpendicular to this red line. Let’s call these new x and y axes as a-axis and b-axis respectively. This is shown below.\nNow, if we use a and b as the new set basis functions (instead of using x and y) for this dataset, it wouldn’t be wrong to say that most of the variance in the dataset is along the a-axis. Now, if we drop the b-axis, we can still represent the points in the dataset very accurately, using just a-axis. Therefore, we now only need half as must storage to store the dataset and reconstruct it accurately. This is exactly how PCA works.\nPCA is a 4 step process. Starting with a dataset containing n dimensions (requiring n-axes to be represented):\nFind a new set of basis functions (naxes) where some axes contribute to most of the variance in the dataset while others contribute very little. Arrange these axes in the decreasing order of variance contribution. Now, pick the top k axes to be used and drop the remaining n-k axes. Now, project the dataset onto these k axes. After these 4 steps, the dataset will be compressed from n-dimensions to just k-dimensions (k\u003cn).\nSteps For the sake of simplicity, let’s take the above dataset and apply PCA on that. The steps involved will be technical and basic knowledge of linear algebra is assumed.\nStep 1 Since this is a 2-dimensional dataset, n=2. The first step is to find the new set of basis functions (a \u0026 b). In the explanation above, we saw that the dataset had the maximum variance along a line and we manually chose that line as a-axis and the line the perpendicular to it as b-axis. In practice, we want this step to be automated.\nTo accomplish this, we can find the eigenvalues and eigenvectors of the covariance matrix of the dataset. Since the dataset is 2 dimensional, we will get 2 eigenvalues and their corresponding eigenvectors. Then, the 2 eigenvectors are two basis functions (new axes) and the two eigenvalues tell us the variance contribution of the corresponding eigenvectors. A large value of eigenvalue implies that the corresponding eigenvector (axis) contributes more towards the total variance of the dataset.\nStep 2 Now, sort the eigenvectors (axes) according to decreasing eigenvalues. Here, we can see that the eigenvalue for a-axis is much larger than that of theb-axis meaning that a-axis contributes more towards the dataset variance.\nThe percentage contribution of each axis towards the total dataset variance can be calculated as:\nThe above numbers prove that the a-axis contributes 99.7% towards the dataset variance and that we can drop the b-axis and lose just 0.28% of the variance.\nStep 3 Now, we will drop the b-axis and keep only the a-axis.\nStep 4 Now, reshape the first eigenvector (a-axis) into a 2x1 matrix, called the projection matrix. It will be used to project the original dataset of shape(100, 2) onto the new basis function (a-axis), thus compressing it to (100, 1).\nReconstruct the data Now, we can use the projection matrix to expand the data back to its original size, with of course a small loss of variance (0.28%).\nThe reconstructed data is shown below:\nPlease note that the variance along the b-axis (0.28%) is lost as evident by the above figure.\nThat’s all folks! If you made it till here, hats off to you! In this article, we took a graphical approach to understand how Principal Component Analysis works and how it can be used for data compression.\nColab Notebook View my Colab Notebook for a well commented code!\n",
+  "wordCount" : "1171",
+  "inLanguage": "en",
+  "image":"//localhost:1313/blog/pca-visualized/cover.jpg","datePublished": "0001-01-01T00:00:00Z",
+  "dateModified": "0001-01-01T00:00:00Z",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "//localhost:1313/blog/pca-visualized/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Abdur Rahman",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "//localhost:1313/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header sticky-header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="//localhost:1313/" accesskey="h" title="Abdur Rahman (Alt + H)">Abdur Rahman</a>
+            <span class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+                <ul class="lang-switch"><li>|</li>
+                </ul>
+            </span>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="//localhost:1313/" title="Home">
+                    <span>Home</span>
+                </a>
+            </li>
+            <li>
+                <a href="//localhost:1313/blog" title="Blog">
+                    <span>Blog</span>
+                </a>
+            </li>
+            <li>
+                <a href="//localhost:1313/projects" title="Projects">
+                    <span>Projects</span>
+                </a>
+            </li>
+            <li>
+                <a href="//localhost:1313/experience" title="Experience">
+                    <span>Experience</span>
+                </a>
+            </li>
+            <li>
+                <a href="//localhost:1313/search" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="//localhost:1313/">Home</a>&nbsp;»&nbsp;<a href="//localhost:1313/blog/">Blogs</a></div>
+    <h1 class="post-title">
+      Principal Component Analysis - Visualized
+    </h1>
+    <div class="post-description">
+      Data compression using Principal Component Analysis (PCA)
+    </div>
+    <div class="post-meta">
+
+
+Aug 2020
+
+</div>
+  </header> 
+<figure class="entry-cover"><img loading="lazy" src="//localhost:1313/blog/pca-visualized/cover.jpg" alt="">
+        
+</figure><div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">‎ Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#introduction" aria-label="Introduction">Introduction</a></li>
+                <li>
+                    <a href="#how-does-pca-work" aria-label="How does PCA work?">How does PCA work?</a></li>
+                <li>
+                    <a href="#steps" aria-label="Steps">Steps</a><ul>
+                        
+                <li>
+                    <a href="#step-1" aria-label="Step 1">Step 1</a></li>
+                <li>
+                    <a href="#step-2" aria-label="Step 2">Step 2</a></li>
+                <li>
+                    <a href="#step-3" aria-label="Step 3">Step 3</a></li>
+                <li>
+                    <a href="#step-4" aria-label="Step 4">Step 4</a></li></ul>
+                </li>
+                <li>
+                    <a href="#reconstruct-the-data" aria-label="Reconstruct the data">Reconstruct the data</a></li>
+                <li>
+                    <a href="#thats-all-folks" aria-label="That’s all folks!">That’s all folks!</a></li>
+                <li>
+                    <a href="#colab-notebook" aria-label="Colab Notebook">Colab Notebook</a>
+                </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><h1 id="introduction">Introduction<a hidden class="anchor" aria-hidden="true" href="#introduction">#</a></h1>
+<p>If you have ever taken an online course on Machine Learning, you must have come across Principal Component Analysis for dimensionality reduction, or in simple terms, for compression of data. Guess what, I had taken such courses too but I never really understood the graphical significance of PCA because all I saw was matrices and equations. It took me quite a lot of time to understand this concept from various sources. So, I decided to compile it all in one place.</p>
+<p>In this article, we will take a visual (graphical) approach to understand PCA and how it can be used to compress data. Basic knowledge of Linear Algebra and Matrices is assumed. If you are new to this concept, just follow along, I have tried my best to keep this as simple as possible.</p>
+<p>These days, datasets containing a large number of dimensions are increasingly common and are often difficult to interpret. One example can be a database of face photographs of let’s say, <strong>1,000,000 people</strong>. If each face photograph has a dimension of <strong>100x100,</strong> then the data of each face is 10000 dimensional (there are 100x100 = 10,000 unique values to be stored for each face). Now, if 1 byte is required to store the information of each pixel, then 10,000 bytes are required to store 1 face. Since there are 1000 faces in the database,10,000 x 1,000,000 = 10 GB will be needed to store the dataset.</p>
+<p>Principal component analysis (PCA) is a technique for reducing the dimensionality of such datasets, exploiting the fact that the images in these datasets have something in common. For instance, in a dataset consisting of face photographs, each photograph will have facial features like eyes, nose, mouth. Instead of encoding this information pixel by pixel, we could make a template of each type of these features and then just combine these templates to generate any face in the dataset. In this approach, each template will still be 100x100 = 1000 dimensional, but since we will be reusing these templates (basis functions) to generate each face in the dataset, the number of templates required will be very small. PCA does exactly this.</p>
+<h1 id="how-does-pca-work">How does PCA work?<a hidden class="anchor" aria-hidden="true" href="#how-does-pca-work">#</a></h1>
+<p>This part is going to be a bit technical, so bear with me! I will try to explain the working of PCA with a simple example. Let’s consider the data shown below containing 100 points each 2 dimensional (x &amp; y coordinates is needed to represent each point).</p>
+<p><img loading="lazy" src="/blog/pca-visualized/img1.png#center" alt=""  />
+</p>
+<p>Currently, we are using 2 values to represent each point. Let’s explain this situation in a more technical way. We are currently using 2 basis functions,x as (1, 0) and y as (0, 1). Each point in the dataset is represented as a weighted sum of these basis functions. For instance, point (2, 3) can be represented as 2(1, 0) + 3(0, 1) = (2, 3). If we omit either of these basis functions, we will not be able to represent the points in the dataset accurately. Therefore, both the dimensions necessary, and we can’t just drop one of them to reduce the storage requirement. This set of basis functions is actually the cartesian coordinate in 2 dimensions.</p>
+<p>If we notice closely, we can very well see that the data approximates a line as shown by the red line below.</p>
+<p><img loading="lazy" src="/blog/pca-visualized/img2.png#center" alt=""  />
+</p>
+<p>Now, let’s rotate the coordinate system such that the x-axis lies along the red line. Then, the y-axis (green line) will be perpendicular to this red line. Let’s call these new x and y axes as a-axis and b-axis respectively. This is shown below.</p>
+<p><img loading="lazy" src="/blog/pca-visualized/img3.png#center" alt=""  />
+</p>
+<p>Now, if we use <strong>a</strong> and <strong>b</strong> as the new set basis functions (instead of using <strong>x</strong> and <strong>y</strong>) for this dataset, it wouldn’t be wrong to say that most of the variance in the dataset is along the <strong>a-axis</strong>. Now, if we drop the <strong>b-axis,</strong> we can still represent the points in the dataset very accurately, using just <strong>a-axis</strong>. Therefore, we now only need half as must storage to store the dataset and reconstruct it accurately. This is exactly how PCA works.</p>
+<p><strong>PCA is a 4 step process.</strong> Starting with a dataset containing <em>n</em> dimensions (requiring <em>n</em>-axes to be represented):</p>
+<ul>
+<li>Find a new set of basis functions (<em>n</em>axes) where some axes contribute to most of the variance in the dataset while others contribute very little.</li>
+<li>Arrange these axes in the decreasing order of variance contribution.</li>
+<li>Now, pick the top <em>k</em> axes to be used and drop the remaining <em>n-k</em> axes.</li>
+<li>Now, project the dataset onto these <em>k</em> axes.</li>
+</ul>
+<p>After these 4 steps, the dataset will be compressed from <em>n</em>-dimensions to just <em>k</em>-dimensions (<em>k</em>&lt;<em>n</em>).</p>
+<h1 id="steps">Steps<a hidden class="anchor" aria-hidden="true" href="#steps">#</a></h1>
+<p>For the sake of simplicity, let’s take the above dataset and apply PCA on that. The steps involved will be technical and basic knowledge of linear algebra is assumed.</p>
+<h2 id="step-1">Step 1<a hidden class="anchor" aria-hidden="true" href="#step-1">#</a></h2>
+<p>Since this is a 2-dimensional dataset, <em>n</em>=2. The first step is to find the new set of basis functions (<strong>a</strong> &amp; <strong>b</strong>). In the explanation above, we saw that the dataset had the maximum variance along a line and we manually chose that line as <strong>a</strong>-axis and the line the perpendicular to it as <strong>b</strong>-axis. In practice, we want this step to be automated.</p>
+<p>To accomplish this, we can find the eigenvalues and eigenvectors of the covariance matrix of the dataset. Since the dataset is 2 dimensional, we will get 2 eigenvalues and their corresponding eigenvectors. Then, the 2 eigenvectors are two basis functions (new axes) and the two eigenvalues tell us the variance contribution of the corresponding eigenvectors. A large value of eigenvalue implies that the corresponding eigenvector (axis) contributes more towards the total variance of the dataset.</p>
+<p><img loading="lazy" src="/blog/pca-visualized/img4.png#center" alt=""  />
+</p>
+<h2 id="step-2">Step 2<a hidden class="anchor" aria-hidden="true" href="#step-2">#</a></h2>
+<p>Now, sort the eigenvectors (axes) according to decreasing eigenvalues. Here, we can see that the eigenvalue for <strong>a-axis</strong> is much larger than that of the<strong>b-axis</strong> meaning that a-axis contributes more towards the dataset variance.</p>
+<p><img loading="lazy" src="/blog/pca-visualized/img5.png#center" alt=""  />
+</p>
+<p>The percentage contribution of each axis towards the total dataset variance can be calculated as:</p>
+<p><img loading="lazy" src="/blog/pca-visualized/img6.jpg#center" alt=""  />
+</p>
+<p><img loading="lazy" src="/blog/pca-visualized/img7.png#center" alt=""  />
+</p>
+<p>The above numbers prove that the <strong>a-axis</strong> contributes 99.7% towards the dataset variance and that we can drop the <strong>b-axis</strong> and lose just 0.28% of the variance.</p>
+<h2 id="step-3">Step 3<a hidden class="anchor" aria-hidden="true" href="#step-3">#</a></h2>
+<p>Now, we will drop the <strong>b-axis</strong> and keep only the <strong>a-axis.</strong></p>
+<p><img loading="lazy" src="/blog/pca-visualized/img8.png#center" alt=""  />
+</p>
+<h2 id="step-4">Step 4<a hidden class="anchor" aria-hidden="true" href="#step-4">#</a></h2>
+<p>Now, reshape the first eigenvector (a-axis) into a 2x1 matrix, called the projection matrix. It will be used to project the original dataset of shape(100, 2) onto the new basis function (a-axis), thus compressing it to (100, 1).</p>
+<p><img loading="lazy" src="/blog/pca-visualized/img9.jpg#center" alt=""  />
+</p>
+<h1 id="reconstruct-the-data">Reconstruct the data<a hidden class="anchor" aria-hidden="true" href="#reconstruct-the-data">#</a></h1>
+<p>Now, we can use the projection matrix to expand the data back to its original size, with of course a small loss of variance (0.28%).</p>
+<p><img loading="lazy" src="/blog/pca-visualized/img10.jpg#center" alt=""  />
+</p>
+<p>The reconstructed data is shown below:</p>
+<p><img loading="lazy" src="/blog/pca-visualized/img11.png#center" alt=""  />
+</p>
+<p>Please note that the variance along the <strong>b-axis</strong> (0.28%) is lost as evident by the above figure.</p>
+<h1 id="thats-all-folks">That’s all folks!<a hidden class="anchor" aria-hidden="true" href="#thats-all-folks">#</a></h1>
+<p>If you made it till here, hats off to you! In this article, we took a graphical approach to understand how Principal Component Analysis works and how it can be used for data compression.</p>
+<h1 id="colab-notebook">Colab Notebook<a hidden class="anchor" aria-hidden="true" href="#colab-notebook">#</a></h1>
+<p>View my <a href="https://colab.research.google.com/drive/1QQcoE501NS9nPBAmlg12zQWHCT1IlI96">Colab Notebook</a> for a well commented code!</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="//localhost:1313/tags/ml/">ML</a></li>
+      <li><a href="//localhost:1313/tags/ai/">AI</a></li>
+      <li><a href="//localhost:1313/tags/python/">Python</a></li>
+      <li><a href="//localhost:1313/tags/pca/">PCA</a></li>
+      <li><a href="//localhost:1313/tags/data-compression/">Data Compression</a></li>
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2024 <a href="//localhost:1313/">Abdur Rahman</a></span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

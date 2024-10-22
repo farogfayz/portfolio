@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Kindle to Notion | Abdur Rahman</title>
+<meta name="keywords" content="TypeScript, Node.JS, REST API, Integration">
+<meta name="description" content="A way to seamlessly transfer your Kindle highlights to Notion Database!">
+<meta name="author" content="">
+<link rel="canonical" href="//localhost:1313/blog/kindle-to-notion/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.min.2b833c6baa7a96407c2417c7a4049985b42c21cccc2472abf4603967eafd2273.css" integrity="sha256-K4M8a6p6lkB8JBfHpASZhbQsIczMJHKr9GA5Z&#43;r9InM=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.min.30d2332871da51f600f574811c17751e6c862577d450b624f86e2bc8a6e31221.js" integrity="sha256-MNIzKHHaUfYA9XSBHBd1HmyGJXfUULYk&#43;G4ryKbjEiE="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="//localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="//localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="//localhost:1313/favicon-32x32.png">
+<link rel="apple-touch-icon" href="//localhost:1313/apple-touch-icon.png">
+<link rel="mask-icon" href="//localhost:1313/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="//localhost:1313/blog/kindle-to-notion/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="Kindle to Notion" />
+<meta property="og:description" content="A way to seamlessly transfer your Kindle highlights to Notion Database!" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="//localhost:1313/blog/kindle-to-notion/" />
+<meta property="og:image" content="//localhost:1313/blog/kindle-to-notion/cover.jpg" /><meta property="article:section" content="blog" />
+
+
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="//localhost:1313/blog/kindle-to-notion/cover.jpg" />
+<meta name="twitter:title" content="Kindle to Notion"/>
+<meta name="twitter:description" content="A way to seamlessly transfer your Kindle highlights to Notion Database!"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Blogs",
+      "item": "//localhost:1313/blog/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Kindle to Notion",
+      "item": "//localhost:1313/blog/kindle-to-notion/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Kindle to Notion",
+  "name": "Kindle to Notion",
+  "description": "A way to seamlessly transfer your Kindle highlights to Notion Database!",
+  "keywords": [
+    "TypeScript", "Node.JS", "REST API", "Integration"
+  ],
+  "articleBody": "✏️ Intro If you’re like me who loves reading books on Kindle, you might have wondered how you could extract your highlights in an organized way and save them as notes. At least I did. You see, I use Notion as my primary note-taking/productivity management app and I already have a database of all the books that I have read so far and also the ones that I am planning to read next.\nAnd since each of these book entries in the Notion database is a page in itself, I thought why not populate them with the highlights that I made in Kindle while reading them. The only problem was Kindle stores all of the highlights in a text file (My Clippings.txt) which as you can see contains a tonne of useless information like the book location, where the highlight was made, and when it was made.\nI needed to find a way to filter out the highlights, group them by the book title and send them to my Notion book database. Not only that, all of this should happen automatically with minimal human effort. So, over the past two weekends, I spent the majority of my time coding and I’m finally ready with an app that would allow readers to seamlessly transfer all of their highlights to Notion. Let’s take a look…\n🤖 Node Environment You need a stable version of Node JS, installed locally, to run this app. I have tested this on Node versions 16 and 14, and it has worked flawlessly on both of them. So, before proceeding to the next steps, make sure you have a stable version of Node installed. I’m not going to explain the environment setup in this article because the installation process might differ for different operating systems. You can easily learn that on Google.\n⚙️ Setup Follow the steps given below to set up the Kindle to Notion app on your local system.\nCopy my Books Database Template to your Notion dashboard. The app requires some fields (Title, Author, and Book Name) to be present in the database in order for the highlight sync to work properly. So, you can either create your own database having these fields or you can just copy mine using the template I provided above.\nClone the GitHub Repository to your local system and install the dependencies.\ngit clone https://github.com/arkalim/kindle-to-notion.git cd kindle-to-notion npm install Rename these files or folders by removing .example extensions as shown below. The original files/folders in my local repo contained data that was either sensitive or specific to my highlights. So, I created empty aliases of them with .example extensions and committed them to GitHub.\n‣ cache.example ➡ cache\n‣ data.example ➡ data\n‣ .env.example ➡ .env\nGet your Notion API key at the Notion Integrations page and create a new internal integration. Integrations allow us to access a portion of our Notion workspace using a secret token called the Notion API key (Internal Integration Token).\nGo to your Notion dashboard. Navigate to the Books database. Click on Share in the top right-hand corner and invite the integration you just created. This will allow the integration to edit the Books database using the Notion API key that we got in the previous step. Copy the link to the Notion Books database and extract the Database Id as shown below. The database id is nothing but all of the gibberish between the last / and the ?. This is required by the app to perform CRUD operations on this database. Original Link: https://www.notion.so/arkalim/346be84507ff482b80fceb4024deadc2?v=e868075eaf5749bc941e617e651295fb Database Id: 346be84507ff482b80fceb4024deadc2 So, now you have the Notion API key as well as the Database Id. Now, populate these variables in the .env file. Storing this sensitive information in .env ensures that it won’t get exposed to the rest of the world if you commit your local repo to GitHub as .gitignore has been configured to ignore .env during commits. NOTION_API_KEY=your-notion-api-key BOOK_DB_ID=your-book-database-id Connect your Kindle to your computer. Navigate to Kindle ➡ documents and copy My Clippings.txt. Replace my My Clippings.txt in resources folder with yours. 🔁 Sync Highlights Finally, we are at the end of the setup section. You are now ready to sync your Kindle highlights to Notion. Open a terminal in your local repository and run the following command to watch your highlights teleport!\nnpm start ❗️For Nerds Every highlight made on Kindle is appended at the end of My Clippings.txt. RegEx has been used extensively throughout the application to parse and filter this text file. cache is a folder that contains the local cache to prevent the app from resyncing old highlights. data is a folder that contains the API response logs. .env is a file containing the environment variables like the Notion API key and the Database Id. Book Name is used as the primary key to facilitate upsert operation in the Notion database. Book Name corresponds to the title of the book in My Clippings.txt. So, this field should be left untouched. However, the other fields like Title, Author, Date Started, Date Finished, Status, and Genre could be modified as per your wish. The app maintains a local cache in the file sync.json present in the cache folder. This JSON file is updated at the end of each sync. This is done to prevent the app from resyncing the old highlights. If no new highlights have been made, no sync takes place. In case you wish to sync every book all over again, you need to empty the array present in sync.json and delete all the highlights present in your Notion database before running the sync. Responses from Notion API calls are exported to files with .json extensions in data folder. This was done to mitigate the problem of effectively logging JSON objects in the console (terminal). That’s all folks! If you made it till here, hats off to you! In this article, we learned how to set up Kindle to Notion app on our local system and use it to sync our Kindle highlights to the Notion Books database. If you want me to write more detailed articles explaining the inner workings of this app, drop a comment below. I write articles regularly so you should consider following me to get more such articles in your feed. Thanks a lot for reading!\n",
+  "wordCount" : "1051",
+  "inLanguage": "en",
+  "image":"//localhost:1313/blog/kindle-to-notion/cover.jpg","datePublished": "0001-01-01T00:00:00Z",
+  "dateModified": "0001-01-01T00:00:00Z",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "//localhost:1313/blog/kindle-to-notion/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Abdur Rahman",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "//localhost:1313/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header sticky-header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="//localhost:1313/" accesskey="h" title="Abdur Rahman (Alt + H)">Abdur Rahman</a>
+            <span class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+                <ul class="lang-switch"><li>|</li>
+                </ul>
+            </span>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="//localhost:1313/" title="Home">
+                    <span>Home</span>
+                </a>
+            </li>
+            <li>
+                <a href="//localhost:1313/blog" title="Blog">
+                    <span>Blog</span>
+                </a>
+            </li>
+            <li>
+                <a href="//localhost:1313/projects" title="Projects">
+                    <span>Projects</span>
+                </a>
+            </li>
+            <li>
+                <a href="//localhost:1313/experience" title="Experience">
+                    <span>Experience</span>
+                </a>
+            </li>
+            <li>
+                <a href="//localhost:1313/search" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="//localhost:1313/">Home</a>&nbsp;»&nbsp;<a href="//localhost:1313/blog/">Blogs</a></div>
+    <h1 class="post-title">
+      Kindle to Notion
+    </h1>
+    <div class="post-description">
+      A way to seamlessly transfer your Kindle highlights to Notion Database!
+    </div>
+    <div class="post-meta">
+
+
+Dec 2021
+
+</div>
+  </header> 
+<figure class="entry-cover"><img loading="lazy" src="//localhost:1313/blog/kindle-to-notion/cover.jpg" alt="">
+        
+</figure><div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">‎ Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#-intro" aria-label="✏️ Intro">✏️ Intro</a></li>
+                <li>
+                    <a href="#-node-environment" aria-label="🤖 Node Environment">🤖 Node Environment</a></li>
+                <li>
+                    <a href="#-setup" aria-label="⚙️ Setup">⚙️ Setup</a></li>
+                <li>
+                    <a href="#-sync-highlights" aria-label="🔁 Sync Highlights">🔁 Sync Highlights</a></li>
+                <li>
+                    <a href="#for-nerds" aria-label="❗️For Nerds">❗️For Nerds</a></li>
+                <li>
+                    <a href="#thats-all-folks" aria-label="That’s all folks!">That’s all folks!</a>
+                </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><h1 id="-intro">✏️ Intro<a hidden class="anchor" aria-hidden="true" href="#-intro">#</a></h1>
+<p>If you’re like me who loves reading books on Kindle, you might have wondered how you could extract your highlights in an organized way and save them as notes. At least I did. You see, I use Notion as my primary note-taking/productivity management app and I already have a database of all the books that I have read so far and also the ones that I am planning to read next.</p>
+<p><img loading="lazy" src="/blog/kindle-to-notion/img1.jpg" alt="My Notion Books Database"  />
+</p>
+<p>And since each of these book entries in the Notion database is a page in itself, I thought why not populate them with the highlights that I made in Kindle while reading them. The only problem was Kindle stores all of the highlights in a text file (My Clippings.txt) which as you can see contains a tonne of useless information like the book location, where the highlight was made, and when it was made.</p>
+<p><img loading="lazy" src="/blog/kindle-to-notion/img2.jpg" alt="My Clippings.txt"  />
+</p>
+<p>I needed to find a way to filter out the highlights, group them by the book title and send them to my Notion book database. Not only that, all of this should happen automatically with minimal human effort. So, over the past two weekends, I spent the majority of my time coding and I’m finally ready with an app that would allow readers to seamlessly transfer all of their highlights to Notion. Let’s take a look&hellip;</p>
+<h1 id="-node-environment">🤖 Node Environment<a hidden class="anchor" aria-hidden="true" href="#-node-environment">#</a></h1>
+<p>You need a stable version of Node JS, installed locally, to run this app. I have tested this on Node versions 16 and 14, and it has worked flawlessly on both of them. So, before proceeding to the next steps, make sure you have a stable version of Node installed. I’m not going to explain the environment setup in this article because the installation process might differ for different operating systems. You can easily learn that on Google.</p>
+<h1 id="-setup">⚙️ Setup<a hidden class="anchor" aria-hidden="true" href="#-setup">#</a></h1>
+<p>Follow the steps given below to set up the Kindle to Notion app on your local system.</p>
+<ul>
+<li>
+<p>Copy my <a href="https://arkalim.notion.site/346be84507ff482b80fceb4024deadc2?v=e868075eaf5749bc941e617e651295fb">Books Database Template</a> to your Notion dashboard. The app requires some fields (<strong>Title</strong>, <strong>Author</strong>, and <strong>Book Name</strong>) to be present in the database in order for the highlight sync to work properly. So, you can either create your own database having these fields or you can just copy mine using the template I provided above.</p>
+</li>
+<li>
+<p>Clone the <a href="https://github.com/arkalim/kindle-to-notion">GitHub Repository</a> to your local system and install the dependencies.</p>
+</li>
+</ul>
+<pre tabindex="0"><code>git clone https://github.com/arkalim/kindle-to-notion.git
+cd kindle-to-notion
+npm install
+</code></pre><ul>
+<li>
+<p>Rename these files or folders by removing .example extensions as shown below. The original files/folders in my local repo contained data that was either sensitive or specific to my highlights. So, I created empty aliases of them with .example extensions and committed them to GitHub.<br>
+‣ <code>cache.example</code> ➡ <code>cache</code><br>
+‣ <code>data.example</code> ➡ <code>data</code><br>
+‣ <code>.env.example</code> ➡ <code>.env</code><br></p>
+</li>
+<li>
+<p>Get your Notion API key at the <a href="https://www.notion.so/my-integrations">Notion Integrations</a> page and create a new internal integration. Integrations allow us to access a portion of our Notion workspace using a secret token called the <strong>Notion API key (Internal Integration Token)</strong>.</p>
+</li>
+</ul>
+<p><img loading="lazy" src="/blog/kindle-to-notion/img3.jpg" alt="My Notion Books Database"  />
+</p>
+<ul>
+<li>Go to your Notion dashboard. Navigate to the Books database. Click on Share in the top right-hand corner and invite the integration you just created. This will allow the integration to edit the <strong>Books</strong> database using the Notion API key that we got in the previous step.</li>
+</ul>
+<p><img loading="lazy" src="/blog/kindle-to-notion/img4.jpg" alt="My Notion Books Database"  />
+</p>
+<ul>
+<li>Copy the link to the Notion <strong>Books</strong> database and extract the Database Id as shown below. The database id is nothing but all of the gibberish between the last <code>/</code> and the <code>?</code>. This is required by the app to perform <strong>CRUD operations</strong> on this database.</li>
+</ul>
+<pre tabindex="0"><code>Original Link: https://www.notion.so/arkalim/346be84507ff482b80fceb4024deadc2?v=e868075eaf5749bc941e617e651295fb
+Database Id: 346be84507ff482b80fceb4024deadc2
+</code></pre><ul>
+<li>So, now you have the <strong>Notion API key</strong> as well as the <strong>Database Id</strong>. Now, populate these variables in the <code>.env</code> file. Storing this sensitive information in <code>.env</code> ensures that it won’t get exposed to the rest of the world if you commit your local repo to GitHub as <code>.gitignore</code> has been configured to ignore <code>.env</code> during commits.</li>
+</ul>
+<pre tabindex="0"><code>NOTION_API_KEY=your-notion-api-key
+BOOK_DB_ID=your-book-database-id
+</code></pre><ul>
+<li>Connect your <strong>Kindle</strong> to your computer. Navigate to <code>Kindle</code> ➡ <code>documents</code> and copy <code>My Clippings.txt</code>. Replace my <code>My Clippings.txt</code> in <code>resources</code> folder with yours.</li>
+</ul>
+<h1 id="-sync-highlights">🔁 Sync Highlights<a hidden class="anchor" aria-hidden="true" href="#-sync-highlights">#</a></h1>
+<p>Finally, we are at the end of the setup section. You are now ready to sync your Kindle highlights to Notion. Open a terminal in your local repository and run the following command to watch your highlights teleport!</p>
+<pre tabindex="0"><code>npm start
+</code></pre><h1 id="for-nerds">❗️For Nerds<a hidden class="anchor" aria-hidden="true" href="#for-nerds">#</a></h1>
+<ul>
+<li>Every highlight made on Kindle is appended at the end of <code>My Clippings.txt</code>. <strong>RegEx</strong> has been used extensively throughout the application to parse and filter this text file.</li>
+<li><code>cache</code> is a folder that contains the local cache to prevent the app from resyncing old highlights. <code>data</code> is a folder that contains the API response logs. <code>.env</code> is a file containing the environment variables like the <strong>Notion API key</strong> and the <strong>Database Id</strong>.</li>
+<li><code>Book Name</code> is used as the primary key to facilitate upsert operation in the Notion database. <code>Book Name</code> corresponds to the title of the book in <code>My Clippings.txt</code>. So, this field should be left untouched. However, the other fields like <strong>Title, Author, Date Started, Date Finished, Status, and Genre</strong> could be modified as per your wish.</li>
+<li>The app maintains a local cache in the file <code>sync.json</code> present in the <code>cache</code> folder. This JSON file is updated at the end of each sync. This is done to prevent the app from resyncing the old highlights. If no new highlights have been made, no sync takes place.</li>
+<li>In case you wish to sync every book all over again, you need to empty the array present in <code>sync.json</code> and delete all the highlights present in your Notion database before running the sync.</li>
+<li>Responses from Notion API calls are exported to files with <code>.json</code> extensions in <code>data</code> folder. This was done to mitigate the problem of effectively logging JSON objects in the console (terminal).</li>
+</ul>
+<h1 id="thats-all-folks">That’s all folks!<a hidden class="anchor" aria-hidden="true" href="#thats-all-folks">#</a></h1>
+<p>If you made it till here, hats off to you! In this article, we learned how to set up <strong>Kindle to Notion</strong> app on our local system and use it to sync our Kindle highlights to the Notion Books database. If you want me to write more detailed articles explaining the inner workings of this app, drop a comment below. I write articles regularly so you should consider following me to get more such articles in your feed. Thanks a lot for reading!</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="//localhost:1313/tags/typescript/">TypeScript</a></li>
+      <li><a href="//localhost:1313/tags/node.js/">Node.JS</a></li>
+      <li><a href="//localhost:1313/tags/rest-api/">REST API</a></li>
+      <li><a href="//localhost:1313/tags/integration/">Integration</a></li>
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2024 <a href="//localhost:1313/">Abdur Rahman</a></span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

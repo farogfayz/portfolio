@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Integration on Abdur Rahman</title>
+    <link>//localhost:1313/tags/integration/</link>
+    <description>Recent content in Integration on Abdur Rahman</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language><atom:link href="//localhost:1313/tags/integration/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Kindle to Notion</title>
+      <link>//localhost:1313/blog/kindle-to-notion/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>//localhost:1313/blog/kindle-to-notion/</guid>
+      <description>A way to seamlessly transfer your Kindle highlights to Notion Database!</description>
+    </item>
+    
+  </channel>
+</rss>

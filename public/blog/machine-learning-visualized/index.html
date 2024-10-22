@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Machine Learning - Visualized | Abdur Rahman</title>
+<meta name="keywords" content="ML, AI, Python, Visualization">
+<meta name="description" content="A visual approach to understand machine learning">
+<meta name="author" content="">
+<link rel="canonical" href="//localhost:1313/blog/machine-learning-visualized/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.min.2b833c6baa7a96407c2417c7a4049985b42c21cccc2472abf4603967eafd2273.css" integrity="sha256-K4M8a6p6lkB8JBfHpASZhbQsIczMJHKr9GA5Z&#43;r9InM=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.min.30d2332871da51f600f574811c17751e6c862577d450b624f86e2bc8a6e31221.js" integrity="sha256-MNIzKHHaUfYA9XSBHBd1HmyGJXfUULYk&#43;G4ryKbjEiE="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="//localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="//localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="//localhost:1313/favicon-32x32.png">
+<link rel="apple-touch-icon" href="//localhost:1313/apple-touch-icon.png">
+<link rel="mask-icon" href="//localhost:1313/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="//localhost:1313/blog/machine-learning-visualized/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="Machine Learning - Visualized" />
+<meta property="og:description" content="A visual approach to understand machine learning" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="//localhost:1313/blog/machine-learning-visualized/" />
+<meta property="og:image" content="//localhost:1313/blog/machine-learning-visualized/cover.jpeg" /><meta property="article:section" content="blog" />
+
+
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="//localhost:1313/blog/machine-learning-visualized/cover.jpeg" />
+<meta name="twitter:title" content="Machine Learning - Visualized"/>
+<meta name="twitter:description" content="A visual approach to understand machine learning"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Blogs",
+      "item": "//localhost:1313/blog/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Machine Learning - Visualized",
+      "item": "//localhost:1313/blog/machine-learning-visualized/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Machine Learning - Visualized",
+  "name": "Machine Learning - Visualized",
+  "description": "A visual approach to understand machine learning",
+  "keywords": [
+    "ML", "AI", "Python", "Visualization"
+  ],
+  "articleBody": "Introduction to machine learning In the traditional hard-coded approach, we program a computer to perform a certain task. We tell it exactly what to do when it receives a certain input. In mathematical terms, this is like saying that we write the f(x) such that when users feed the input x into f(x), it gives the correct output y.\nIn machine learning, however, we have a large set of inputs x and corresponding outputs y but not the function f(x). The goal here is to find the f(x) that transforms the input x into the output y. Well, that’s not an easy job. In this article, we will learn how this happens.\nDataset To visualize the dataset, let’s make our synthetic dataset where each data point (input x) is 3 dimensional, making it suitable to be plotted on a 3D chart. We will generate 250 points (cluster 0) in a cluster centered at the origin (0, 0, 0). A similar cluster of 250 points (cluster 1) is generated but not centered at the origin. Both clusters are relatively close but there is a clear separation as seen in the image below. These two clusters are the two classes of data points. The big green dot represents the centroid of the whole dataset.\nAfter generating the dataset, we will normalize it by subtracting the mean and dividing by the standard deviation. This is done to zero-center the data and map values in each dimension in the dataset to a common scale. This speeds up the learning.\nThe data will be saved in an array X containing the 3D coordinates of normalized points. We will also generate an array Y with the value either 0 or 1 at each index depending on which cluster the 3D point belongs.\nLearnable Function Now that we have our data ready, we can say that we have the x and y. We know that the dataset is linearly separable implying that there is a plane that can divide the dataset into the two clusters, but we don’t know what the equation of such an optimal plane is. For now, let’s just take a random plane.\nThe function f(x) should take a 3D coordinate as input and output a number between 0 and 1. If this number is less than 0.5, this point belongs to cluster 0 otherwise, it belongs to cluster 1. Let’s define a simple function for this task.\nx: input tensor of shape (num_points, 3)W: Weight (parameter) of shape (3, 1) chosen randomlyB: Bias (parameter) of shape (1, 1) chosen randomlySigmoid: A function that maps values between 0 and 1\nLet’s take a moment to understand what this function means. Before applying the sigmoid function, we are simply creating a linear mapping from the 3D coordinate (input) to 1D output. Therefore, this function will squish the whole 3D space onto a line meaning that each point in the original 3D space will now be lying somewhere on this line. Since this line will extend to infinity, we map it to [0, 1] using the Sigmoid function. As a result, for each given input, f(x) will output a value between 0 and 1.\nRemember that W and B are chosen randomly and so the 3D space will be squished onto a random line. The decision boundary for this transformation is the set of points that make f(x) = 0.5. Think why! As the 3D space is being squished onto a 1D line, a whole plane is mapped to the value 0.5 on the line. This plane is the decision boundary for f(x). Ideally, it should divide the dataset into two clusters but since W and B are randomly chosen, this plane is randomly oriented as shown below.\nOur goal is to find the right values for W and B that orients this plane (decision boundary) in such a way that it divides the dataset into the two clusters. This when done, yields a plane as shown below.\nLoss So, we are now at the starting point (random decision boundary) and we have defined the goal. We need a metric to decide how far we are from the goal. The output of the classifier is a tensor of shape (num_points, 1) where each value is between [0, 1]. If you think carefully, these values are just the probabilities of the points belonging to cluster 1. So, we can say that:\nf(x) = P(x belongs to cluster 1) 1-f(x) = P(x belongs to cluster 0) It wouldn’t be wrong to say that [1-f(x), f(x)] forms a probability distribution over the clusters 0 and cluster 1 respectively. This is the predicted probability distribution. We know for sure which cluster every point in the dataset belongs to (from y). So, we also have the true probability distribution as:\n[0, 1] when x belongs to the cluster 1 [1, 0] when x belongs to the cluster 0 A good metric to calculate the incongruity between two probability distributions is the Cross-Entropy function. As we are dealing with just 2 classes, we can use Binary Cross-Entropy (BCE). This function is available in PyTorch’s torch.nn module. If the predicted probability distribution is very similar to the true probability distribution, this function returns a small value and vice versa. We can average this value for all the data points and use it as a parameter to test how the classifier is performing.\nThis value is called the loss and mathematically, our goal now is to minimize this loss.\nTraining Now that we have defined our goal mathematically, how do we reach our goal practically? In other words, how do we find optimal values for W and B? To understand this, we will take a look at some basic calculus. Recall that we currently have random values for W and B. The process of learning or training or reaching the goal or minimizing the loss can be divided into two steps:\nForward-propagation: We feed the dataset through the classifier f(x) and use BCE to find the loss. Backpropagation: Using the loss, adjust the values of W and B to minimize the loss. The above two steps will be repeated over and over again until the loss stops decreasing. In this condition, we say that we have reached the goal!\nBackpropagation Forward propagation is simple and already discussed above. However, it is essential to take a moment to understand backpropagation as it is the key to machine learning. Recall that we have 3 parameters (variables) in W and 1 in B. So, in total, we have 4 values to optimize.\nOnce we have the loss from forward-propagation, we will calculate the gradients of the loss function with respect to each variable in the classifier. If we plot the loss for different values of each parameter, we can see that the loss is minimum at a particular value for each parameter. I have plotted the loss vs parameter for each parameter.\nAn important observation to make here is that the loss is minimized at a particular value for each of these parameters as shown by the red dot.\nLet’s consider the first plot and discuss how w1 will be optimized. The process remains the same for the other parameters. Initially, the values for W and B are chosen randomly and so (w1, loss) will be randomly placed on this curve as shown by the green dot.\nNow, the goal is to reach the red dot, starting from the green dot. In other words, we need to move downhill. Looking at the slope of the curve at the green dot, we can tell that increasing w1 (moving right) will lower the loss and therefore move the green dot closer to the red one. In mathematical terms, if the gradient of the loss with respect to w1 is negative, increase w1 to move downhill and vice versa. Therefore, w1 should be updated as:\nThe equation above is known as gradient descent equation. Here, the learning_rate controls how much we want to increase or decrease w1. If the learning_rate is large, the update will be large. This could lead to w1 going past the red dot and therefore missing the optimal value. If this value is too small, it will take forever for w1 to reach the red dot. You can try experimenting with different values of learning rate to see which works the best. In general, small values like 0.01 works well for most cases.\nIn most cases, a single update is not enough to optimize these parameters; so, the process of forward-propagation and backpropagation is repeated in a loop until the loss stops reducing further. Let’s see this in action:\nAn important observation to make is that initially the green dot moves quickly and slows down as it gradually approaches the minima. The large slope (gradient) during the first few epochs (when the green dot is far from the minima) is responsible for this large update to the parameters. The gradient decreases as the green dot approaches the minima and thus the update becomes slow. The other three parameters are trained in parallel in the exact same way. Another important observation is that the shape of the curve changes with epoch. This is due to the fact that the other three parameters (w2, w3, b) are also being updated in parallel and each parameter contributes to the shape of the loss curve.\nVisualize Let’s see how the decision boundary updates in real-time as the parameters are being updated.\nThat’s all folks! If you made it till here, hats off to you! In this article, we took a visual approach to understand how machine learning works. So far, we have seen how a simple 3D to 1D mapping, f(x), can be used to fit a decision boundary (2D plane) to a linearly separable dataset (3D). We discussed how forward propagation is used to calculate the loss followed by backpropagation where gradients of the loss with respect to parameters are calculated and the parameters are updated repeatedly in a training loop.\n",
+  "wordCount" : "1672",
+  "inLanguage": "en",
+  "image":"//localhost:1313/blog/machine-learning-visualized/cover.jpeg","datePublished": "0001-01-01T00:00:00Z",
+  "dateModified": "0001-01-01T00:00:00Z",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "//localhost:1313/blog/machine-learning-visualized/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Abdur Rahman",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "//localhost:1313/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header sticky-header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="//localhost:1313/" accesskey="h" title="Abdur Rahman (Alt + H)">Abdur Rahman</a>
+            <span class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+                <ul class="lang-switch"><li>|</li>
+                </ul>
+            </span>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="//localhost:1313/" title="Home">
+                    <span>Home</span>
+                </a>
+            </li>
+            <li>
+                <a href="//localhost:1313/blog" title="Blog">
+                    <span>Blog</span>
+                </a>
+            </li>
+            <li>
+                <a href="//localhost:1313/projects" title="Projects">
+                    <span>Projects</span>
+                </a>
+            </li>
+            <li>
+                <a href="//localhost:1313/experience" title="Experience">
+                    <span>Experience</span>
+                </a>
+            </li>
+            <li>
+                <a href="//localhost:1313/search" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="//localhost:1313/">Home</a>&nbsp;»&nbsp;<a href="//localhost:1313/blog/">Blogs</a></div>
+    <h1 class="post-title">
+      Machine Learning - Visualized
+    </h1>
+    <div class="post-description">
+      A visual approach to understand machine learning
+    </div>
+    <div class="post-meta">
+
+
+August 2020
+
+</div>
+  </header> 
+<figure class="entry-cover"><img loading="lazy" src="//localhost:1313/blog/machine-learning-visualized/cover.jpeg" alt="">
+        
+</figure><div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">‎ Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#introduction-to-machine-learning" aria-label="Introduction to machine learning">Introduction to machine learning</a></li>
+                <li>
+                    <a href="#dataset" aria-label="Dataset">Dataset</a></li>
+                <li>
+                    <a href="#learnable-function" aria-label="Learnable Function">Learnable Function</a></li>
+                <li>
+                    <a href="#loss" aria-label="Loss">Loss</a></li>
+                <li>
+                    <a href="#training" aria-label="Training">Training</a></li>
+                <li>
+                    <a href="#backpropagation" aria-label="Backpropagation">Backpropagation</a></li>
+                <li>
+                    <a href="#visualize" aria-label="Visualize">Visualize</a></li>
+                <li>
+                    <a href="#thats-all-folks" aria-label="That’s all folks!">That’s all folks!</a>
+                </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><h1 id="introduction-to-machine-learning">Introduction to machine learning<a hidden class="anchor" aria-hidden="true" href="#introduction-to-machine-learning">#</a></h1>
+<p>In the traditional hard-coded approach, we program a computer to perform a certain task. We tell it exactly what to do when it receives a certain input. In mathematical terms, this is like saying that we write the <em><strong>f(x)</strong></em> such that when users feed the input <em><strong>x</strong></em> into <em><strong>f(x)</strong></em>, it gives the correct output <em><strong>y</strong></em>.</p>
+<p><img loading="lazy" src="/blog/machine-learning-visualized/img1.jpg" alt=""  />
+
+In machine learning, however, we have a large set of inputs x and corresponding outputs y but not the function f(x). The goal here is to find the f(x) that transforms the input x into the output y. Well, that’s not an easy job. In this article, we will learn how this happens.</p>
+<h1 id="dataset">Dataset<a hidden class="anchor" aria-hidden="true" href="#dataset">#</a></h1>
+<p>To visualize the dataset, let’s make our synthetic dataset where each data point (input <em><strong>x</strong></em>) is 3 dimensional, making it suitable to be plotted on a 3D chart. We will generate 250 points <strong>(cluster 0)</strong> in a cluster centered at the origin (0, 0, 0). A similar cluster of 250 points <strong>(cluster 1)</strong> is generated but not centered at the origin. Both clusters are relatively close but there is a clear separation as seen in the image below. These two clusters are the two classes of data points. The big green dot represents the centroid of the whole dataset.</p>
+<p><img loading="lazy" src="/blog/machine-learning-visualized/img2.jpg" alt=""  />
+</p>
+<p>After generating the dataset, we will normalize it by subtracting the mean and dividing by the standard deviation. This is done to zero-center the data and map values in each dimension in the dataset to a common scale. This speeds up the learning.</p>
+<p><img loading="lazy" src="/blog/machine-learning-visualized/img3.jpg" alt=""  />
+</p>
+<p>The data will be saved in an array X containing the 3D coordinates of normalized points. We will also generate an array Y with the value either 0 or 1 at each index depending on which cluster the 3D point belongs.</p>
+<h1 id="learnable-function">Learnable Function<a hidden class="anchor" aria-hidden="true" href="#learnable-function">#</a></h1>
+<p>Now that we have our data ready, we can say that we have the <em><strong>x</strong></em> and <em><strong>y.</strong></em> We know that the dataset is linearly separable implying that there is a plane that can divide the dataset into the two clusters, but we don’t know what the equation of such an optimal plane is. For now, let’s just take a random plane.</p>
+<p>The function f(x) should take a 3D coordinate as input and output a number between 0 and 1. If this number is less than 0.5, this point belongs to cluster 0 otherwise, it belongs to cluster 1. Let’s define a simple function for this task.</p>
+<p><img loading="lazy" src="/blog/machine-learning-visualized/img4.jpg" alt=""  />
+</p>
+<p><em><strong>x</strong></em>: input tensor of shape (num_points, 3)W: Weight (parameter) of shape (3, 1) chosen randomlyB: Bias (parameter) of shape (1, 1) chosen randomlySigmoid: A function that maps values between 0 and 1</p>
+<p>Let’s take a moment to understand what this function means. Before applying the sigmoid function, we are simply creating a linear mapping from the 3D coordinate (input) to 1D output. Therefore, <strong>this function will squish the whole 3D space onto a line</strong> meaning that each point in the original 3D space will now be lying somewhere on this line. Since this line will extend to infinity, we map it to <strong>[0, 1]</strong> using the <strong>Sigmoid</strong> function. As a result, for each given input, <em><strong>f(x)</strong></em> will output a value between 0 and 1.</p>
+<p>Remember that W and B are chosen randomly and so the 3D space will be squished onto a random line. The decision boundary for this transformation is the set of points that make <strong><em>f(x)</em> = 0.5</strong>. Think why! As the 3D space is being squished onto a 1D line, a whole plane is mapped to the value 0.5 on the line. This plane is the decision boundary for f(x). Ideally, it should divide the dataset into two clusters but since <strong>W</strong> and <strong>B</strong> are randomly chosen, this plane is randomly oriented as shown below.</p>
+<p><img loading="lazy" src="/blog/machine-learning-visualized/img5.jpg" alt=""  />
+</p>
+<p>Our goal is to find the right values for W and B that orients this plane (decision boundary) in such a way that it divides the dataset into the two clusters. This when done, yields a plane as shown below.</p>
+<p><img loading="lazy" src="/blog/machine-learning-visualized/img6.jpg" alt=""  />
+</p>
+<h1 id="loss">Loss<a hidden class="anchor" aria-hidden="true" href="#loss">#</a></h1>
+<p>So, we are now at the starting point (random decision boundary) and we have defined the goal. We need a metric to decide how far we are from the goal. The output of the classifier is a tensor of shape (num_points, 1) where each value is between <strong>[0, 1]</strong>. If you think carefully, these values are just the probabilities of the points belonging to cluster 1. So, we can say that:</p>
+<ul>
+<li>f(x) = P(x belongs to cluster 1)</li>
+<li>1-f(x) = P(x belongs to cluster 0)</li>
+</ul>
+<p>It wouldn’t be wrong to say that [<em><strong>1-f(x), f(x)</strong></em>] forms a probability distribution over the clusters 0 and cluster 1 respectively. This is the <strong>predicted probability distribution</strong>. We know for sure which cluster every point in the dataset belongs to (from <em><strong>y</strong></em>). So, we also have the <strong>true probability distribution</strong> as:</p>
+<ul>
+<li>[0, 1] when x belongs to the cluster 1</li>
+<li>[1, 0] when x belongs to the cluster 0</li>
+</ul>
+<p>A good metric to calculate the incongruity between two probability distributions is the <strong>Cross-Entropy</strong> function. As we are dealing with just 2 classes, we can use <strong>Binary Cross-Entropy (BCE).</strong> This function is available in PyTorch’s <strong>torch.nn</strong> module. If the predicted probability distribution is very similar to the true probability distribution, this function returns a small value and vice versa. We can average this value for all the data points and use it as a parameter to test how the classifier is performing.</p>
+<p><img loading="lazy" src="/blog/machine-learning-visualized/img7.jpg" alt=""  />
+</p>
+<p>This value is called the loss and mathematically, our goal now is to minimize this loss.</p>
+<h1 id="training">Training<a hidden class="anchor" aria-hidden="true" href="#training">#</a></h1>
+<p>Now that we have defined our goal mathematically, how do we reach our goal practically? In other words, how do we find optimal values for <strong>W</strong> and <strong>B</strong>? To understand this, we will take a look at some basic calculus. Recall that we currently have random values for <strong>W</strong> and <strong>B</strong>. The process of learning or training or reaching the goal or minimizing the loss can be divided into two steps:</p>
+<ol>
+<li><strong>Forward-propagation:</strong> We feed the dataset through the classifier <em><strong>f(x)</strong></em> and use <strong>BCE</strong> to find the <strong>loss.</strong></li>
+<li><strong>Backpropagation:</strong> Using the loss, adjust the values of <strong>W</strong> and <strong>B</strong> to minimize the <strong>loss</strong>.</li>
+</ol>
+<p>The above two steps will be repeated over and over again until the loss stops decreasing. In this condition, we say that we have reached the goal!</p>
+<h1 id="backpropagation">Backpropagation<a hidden class="anchor" aria-hidden="true" href="#backpropagation">#</a></h1>
+<p>Forward propagation is simple and already discussed above. However, it is essential to take a moment to understand <strong>backpropagation</strong> as it is the key to machine learning. Recall that we have 3 parameters (variables) in <strong>W</strong> and 1 in <strong>B</strong>. So, in total, we have 4 values to optimize.</p>
+<p><img loading="lazy" src="/blog/machine-learning-visualized/img8.jpg" alt=""  />
+</p>
+<p>Once we have the loss from forward-propagation, we will calculate the gradients of the loss function with respect to each variable in the classifier. If we plot the loss for different values of each parameter, we can see that the loss is minimum at a particular value for each parameter. I have plotted the loss vs parameter for each parameter.</p>
+<p><img loading="lazy" src="/blog/machine-learning-visualized/img9.jpg" alt=""  />
+</p>
+<p>An important observation to make here is that the loss is minimized at a particular value for each of these parameters as shown by the red dot.</p>
+<p>Let’s consider the first plot and discuss how w1 will be optimized. The process remains the same for the other parameters. Initially, the values for W and B are chosen randomly and so <strong>(w1, loss)</strong> will be randomly placed on this curve as shown by the green dot.</p>
+<p><img loading="lazy" src="/blog/machine-learning-visualized/img10.jpg" alt=""  />
+</p>
+<p>Now, the goal is to reach the red dot, starting from the green dot. In other words, we need to move downhill. Looking at the slope of the curve at the green dot, we can tell that increasing w1 (moving right) will lower the loss and therefore move the green dot closer to the red one. In mathematical terms, if the gradient of the loss with respect to w1 is negative, increase w1 to move downhill and vice versa. Therefore, w1 should be updated as:</p>
+<p><img loading="lazy" src="/blog/machine-learning-visualized/img11.jpg" alt=""  />
+</p>
+<p>The equation above is known as <strong>gradient descent equation</strong>. Here, the <strong>learning_rate</strong> controls how much we want to increase or decrease w1. If the learning_rate is large, the update will be large. This could lead to w1 going past the red dot and therefore missing the optimal value. If this value is too small, it will take forever for w1 to reach the red dot. You can try experimenting with different values of learning rate to see which works the best. In general, small values like <strong>0.01</strong> works well for most cases.</p>
+<p>In most cases, a single update is not enough to optimize these parameters; so, the process of forward-propagation and backpropagation is repeated in a loop until the loss stops reducing further. Let’s see this in action:</p>
+<p><img loading="lazy" src="/blog/machine-learning-visualized/img12.gif#center" alt=""  />
+</p>
+<p>An important observation to make is that initially the green dot moves quickly and slows down as it gradually approaches the minima. The large slope (gradient) during the first few epochs (when the green dot is far from the minima) is responsible for this large update to the parameters. The gradient decreases as the green dot approaches the minima and thus the update becomes slow. The other three parameters are trained in parallel in the exact same way. Another important observation is that the shape of the curve changes with epoch. This is due to the fact that the other three parameters (w2, w3, b) are also being updated in parallel and each parameter contributes to the shape of the loss curve.</p>
+<h1 id="visualize">Visualize<a hidden class="anchor" aria-hidden="true" href="#visualize">#</a></h1>
+<p>Let’s see how the decision boundary updates in real-time as the parameters are being updated.</p>
+<p><img loading="lazy" src="/blog/machine-learning-visualized/img13.gif#center" alt=""  />
+</p>
+<h1 id="thats-all-folks">That’s all folks!<a hidden class="anchor" aria-hidden="true" href="#thats-all-folks">#</a></h1>
+<p>If you made it till here, hats off to you! In this article, we took a visual approach to understand how machine learning works. So far, we have seen how a simple 3D to 1D mapping, <em><strong>f(x)</strong></em>, can be used to fit a decision boundary (2D plane) to a linearly separable dataset (3D). We discussed how forward propagation is used to calculate the loss followed by backpropagation where gradients of the loss with respect to parameters are calculated and the parameters are updated repeatedly in a training loop.</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="//localhost:1313/tags/ml/">ML</a></li>
+      <li><a href="//localhost:1313/tags/ai/">AI</a></li>
+      <li><a href="//localhost:1313/tags/python/">Python</a></li>
+      <li><a href="//localhost:1313/tags/visualization/">Visualization</a></li>
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2024 <a href="//localhost:1313/">Abdur Rahman</a></span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>
