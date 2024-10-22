@@ -1,44 +1,44 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>TypeScript on Abdur Rahman</title>
-    <link>//localhost:1313/tags/typescript/</link>
-    <description>Recent content in TypeScript on Abdur Rahman</description>
+    <title>TypeScript on Farog Basher</title>
+    <link>http://localhost:1313/tags/typescript/</link>
+    <description>Recent content in TypeScript on Farog Basher</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="//localhost:1313/tags/typescript/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language><atom:link href="http://localhost:1313/tags/typescript/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Kindle to Notion</title>
-      <link>//localhost:1313/blog/kindle-to-notion/</link>
+      <link>http://localhost:1313/blog/kindle-to-notion/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>//localhost:1313/blog/kindle-to-notion/</guid>
+      <guid>http://localhost:1313/blog/kindle-to-notion/</guid>
       <description>A way to seamlessly transfer your Kindle highlights to Notion Database!</description>
     </item>
     
     <item>
       <title>Obsidian Publish using GitHub Action</title>
-      <link>//localhost:1313/projects/obsidian-publish-github-action/</link>
+      <link>http://localhost:1313/projects/obsidian-publish-github-action/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>//localhost:1313/projects/obsidian-publish-github-action/</guid>
+      <guid>http://localhost:1313/projects/obsidian-publish-github-action/</guid>
       <description>A custom GitHub Action to publish Obsidian notes as a website</description>
     </item>
     
     <item>
       <title>Kindle to Notion</title>
-      <link>//localhost:1313/projects/kindle-to-notion/</link>
+      <link>http://localhost:1313/projects/kindle-to-notion/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>//localhost:1313/projects/kindle-to-notion/</guid>
+      <guid>http://localhost:1313/projects/kindle-to-notion/</guid>
       <description>A way to seamlessly transfer your Kindle highlights to Notion Database!</description>
     </item>
     
     <item>
       <title>Backend Engineer</title>
-      <link>//localhost:1313/experience/buyerassist/</link>
+      <link>http://localhost:1313/experience/buyerassist/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>//localhost:1313/experience/buyerassist/</guid>
+      <guid>http://localhost:1313/experience/buyerassist/</guid>
       <description>BuyerAssist (India)</description>
     </item>
     

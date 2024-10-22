@@ -1,89 +1,89 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>Projects on Abdur Rahman</title>
-    <link>//localhost:1313/projects/</link>
-    <description>Recent content in Projects on Abdur Rahman</description>
+    <title>Projects on Farog Basher</title>
+    <link>http://localhost:1313/projects/</link>
+    <description>Recent content in Projects on Farog Basher</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="//localhost:1313/projects/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language><atom:link href="http://localhost:1313/projects/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Obsidian Publish using GitHub Action</title>
-      <link>//localhost:1313/projects/obsidian-publish-github-action/</link>
+      <link>http://localhost:1313/projects/obsidian-publish-github-action/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>//localhost:1313/projects/obsidian-publish-github-action/</guid>
+      <guid>http://localhost:1313/projects/obsidian-publish-github-action/</guid>
       <description>A custom GitHub Action to publish Obsidian notes as a website</description>
     </item>
     
     <item>
       <title>Kindle to Notion</title>
-      <link>//localhost:1313/projects/kindle-to-notion/</link>
+      <link>http://localhost:1313/projects/kindle-to-notion/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>//localhost:1313/projects/kindle-to-notion/</guid>
+      <guid>http://localhost:1313/projects/kindle-to-notion/</guid>
       <description>A way to seamlessly transfer your Kindle highlights to Notion Database!</description>
     </item>
     
     <item>
       <title>Automated Image Captioning (Bachelor Thesis)</title>
-      <link>//localhost:1313/projects/automated-image-captioning/</link>
+      <link>http://localhost:1313/projects/automated-image-captioning/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>//localhost:1313/projects/automated-image-captioning/</guid>
+      <guid>http://localhost:1313/projects/automated-image-captioning/</guid>
       <description>Can computers summarize the contents of an image?</description>
     </item>
     
     <item>
       <title>Todo List App</title>
-      <link>//localhost:1313/projects/todo-list-app/</link>
+      <link>http://localhost:1313/projects/todo-list-app/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>//localhost:1313/projects/todo-list-app/</guid>
+      <guid>http://localhost:1313/projects/todo-list-app/</guid>
       <description>A Todo list web application built using React</description>
     </item>
     
     <item>
       <title>Face Landmarks Detection using CNN</title>
-      <link>//localhost:1313/projects/face-landmarks-detection/</link>
+      <link>http://localhost:1313/projects/face-landmarks-detection/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>//localhost:1313/projects/face-landmarks-detection/</guid>
+      <guid>http://localhost:1313/projects/face-landmarks-detection/</guid>
       <description>Can computers really understand the human face?</description>
     </item>
     
     <item>
       <title>Gaze-tracking Goggles</title>
-      <link>//localhost:1313/projects/gaze-tracking-goggles/</link>
+      <link>http://localhost:1313/projects/gaze-tracking-goggles/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>//localhost:1313/projects/gaze-tracking-goggles/</guid>
+      <guid>http://localhost:1313/projects/gaze-tracking-goggles/</guid>
       <description>Smart Goggles for Gaze Analysis</description>
     </item>
     
     <item>
       <title>OpenQuad</title>
-      <link>//localhost:1313/projects/openquad/</link>
+      <link>http://localhost:1313/projects/openquad/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>//localhost:1313/projects/openquad/</guid>
+      <guid>http://localhost:1313/projects/openquad/</guid>
       <description>Open-souce platform for drone automation</description>
     </item>
     
     <item>
       <title>Search and Reconnaissance Robot</title>
-      <link>//localhost:1313/projects/search-and-reconnaissance-robot/</link>
+      <link>http://localhost:1313/projects/search-and-reconnaissance-robot/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>//localhost:1313/projects/search-and-reconnaissance-robot/</guid>
+      <guid>http://localhost:1313/projects/search-and-reconnaissance-robot/</guid>
       <description>An all-terrain robot for disaster management!</description>
     </item>
     
     <item>
       <title>SEBART-Pro</title>
-      <link>//localhost:1313/projects/sebart-pro/</link>
+      <link>http://localhost:1313/projects/sebart-pro/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>//localhost:1313/projects/sebart-pro/</guid>
+      <guid>http://localhost:1313/projects/sebart-pro/</guid>
       <description>A smart self-balancing robot!</description>
     </item>
     

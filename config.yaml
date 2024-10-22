@@ -1,6 +1,6 @@
-#baseURL: "http://hugo-portfolio.s3-website.us-east-2.amazonaws.com/"
+baseURL: "http://hugo-portfolio.s3-website.us-east-2.amazonaws.com/"
 languageCode: en-us
-title: Abdur Rahman
+title: Farog Basher
 theme: PaperMod
 
 menu:
@@ -48,8 +48,8 @@ params:
   # Home Page
   profileMode:
     enabled: true
-    title: "Abdur Rahman"
-    subtitle: Hi 👋 I'm Abdur, a tech enthusiast who loves solving complex problems. As a Software Developer in the Backend Infrastructure team at [**Clio**](https://www.clio.com), I'm building robust systems to transform the legal experience for all. By evening, you can find me pushing the limits of my strength at the gym or whipping up my favorite recipe in the kitchen. Let's connect and create something awesome together!
+    title: "Farog Basher"
+    subtitle: Hi 👋 I'm Farog Basher, a tech enthusiast who loves solving complex problems. As a Software Developer in the Backend Infrastructure team at [**Clio**](https://www.clio.com), I'm building robust systems to transform the legal experience for all. By evening, you can find me pushing the limits of my strength at the gym or whipping up my favorite recipe in the kitchen. Let's connect and create something awesome together!
 
  
     imageUrl: "home/casual-small-square.jpeg"

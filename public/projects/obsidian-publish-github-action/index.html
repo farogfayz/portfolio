@@ -5,22 +5,22 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
-<title>Obsidian Publish using GitHub Action | Abdur Rahman</title>
+<title>Obsidian Publish using GitHub Action | Farog Basher</title>
 <meta name="keywords" content="AWS, RegEx, MkDocs, GitHub Action, Docker, Bash, TypeScript, Node.JS">
 <meta name="description" content="A custom GitHub Action to publish Obsidian notes as a website">
 <meta name="author" content="">
-<link rel="canonical" href="//localhost:1313/projects/obsidian-publish-github-action/">
+<link rel="canonical" href="http://localhost:1313/projects/obsidian-publish-github-action/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.min.2b833c6baa7a96407c2417c7a4049985b42c21cccc2472abf4603967eafd2273.css" integrity="sha256-K4M8a6p6lkB8JBfHpASZhbQsIczMJHKr9GA5Z&#43;r9InM=" rel="preload stylesheet" as="style">
 <script defer crossorigin="anonymous" src="/assets/js/highlight.min.30d2332871da51f600f574811c17751e6c862577d450b624f86e2bc8a6e31221.js" integrity="sha256-MNIzKHHaUfYA9XSBHBd1HmyGJXfUULYk&#43;G4ryKbjEiE="
     onload="hljs.initHighlightingOnLoad();"></script>
-<link rel="icon" href="//localhost:1313/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="//localhost:1313/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="//localhost:1313/favicon-32x32.png">
-<link rel="apple-touch-icon" href="//localhost:1313/apple-touch-icon.png">
-<link rel="mask-icon" href="//localhost:1313/safari-pinned-tab.svg">
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="//localhost:1313/projects/obsidian-publish-github-action/">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/projects/obsidian-publish-github-action/">
 <noscript>
     <style>
         #theme-toggle,
@@ -60,13 +60,13 @@
 </noscript><meta property="og:title" content="Obsidian Publish using GitHub Action" />
 <meta property="og:description" content="A custom GitHub Action to publish Obsidian notes as a website" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="//localhost:1313/projects/obsidian-publish-github-action/" />
-<meta property="og:image" content="//localhost:1313/projects/obsidian-publish-github-action/cover.jpg" /><meta property="article:section" content="projects" />
+<meta property="og:url" content="http://localhost:1313/projects/obsidian-publish-github-action/" />
+<meta property="og:image" content="http://localhost:1313/projects/obsidian-publish-github-action/cover.jpg" /><meta property="article:section" content="projects" />
 
 
 
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:image" content="//localhost:1313/projects/obsidian-publish-github-action/cover.jpg" />
+<meta name="twitter:image" content="http://localhost:1313/projects/obsidian-publish-github-action/cover.jpg" />
 <meta name="twitter:title" content="Obsidian Publish using GitHub Action"/>
 <meta name="twitter:description" content="A custom GitHub Action to publish Obsidian notes as a website"/>
 
@@ -80,13 +80,13 @@
       "@type": "ListItem",
       "position":  1 ,
       "name": "Projects",
-      "item": "//localhost:1313/projects/"
+      "item": "http://localhost:1313/projects/"
     }, 
     {
       "@type": "ListItem",
       "position":  2 ,
       "name": "Obsidian Publish using GitHub Action",
-      "item": "//localhost:1313/projects/obsidian-publish-github-action/"
+      "item": "http://localhost:1313/projects/obsidian-publish-github-action/"
     }
   ]
 }
@@ -104,18 +104,18 @@
   "articleBody": "Intro In my video about How I cleared the AWS SAA Certification Exam, I shared my preparation strategy as well as tips to ace the exam. I also gave a glimpse of my revision notes that I prepared while taking the course and practice exams on Udemy. After that video was out, I got so many comments and DMs, requesting me to share my notes, but the problem was that I took these notes using a note-taking app called Obsidian which stores them in markdown format locally on my Mac. Once I’m done editing my notes, I push them to a GitHub repository to make sure I don’t lose them if my laptop breaks.\nSo, if you want to view my notes exactly like I do, you can clone my Obsidian Vault repository and download Obsidian to render it. But, this solution isn’t elegant as it would require you to download an additional software. So, I along with my college roommate, Sarthak Narayan, had been working over the past 2 weeks on the project, Obsidian Publish using GitHub Action, which would allow us to effortlessly publish our notes as a static website.\nIt is complete and I’ve used it to publish my notes at notes.arkalim.org. Working The GitHub Action spins up a Docker container which parses and converts Obsidian markdown notes into a special markdown format understood by MkDocs, an open-source static site generator. MkDocs is actually meant for preparing documentations but works well for notes too. After the markdown files have been converted, all the images in my notes are compressed to a fraction of their original size so that they can load quickly in your web browser. A static site is then built using MkDocs and then finally deployed on Netlify. All of this happens automatically using GitHub Actions. All I have to do is update my notes and push the changes to GitHub.\nFinal thoughts Having an automated way to publish your notes online with the community is a powerful way to share knowledge. This project has also made it exceedingly easy for me to refer my notes from anywhere, which is powerful when you work on a lot of systems.\nResources My Notes Obsidian Publish - GitHub Action Parser and Image Compressor MkDocs - Material Theme ",
   "wordCount" : "380",
   "inLanguage": "en",
-  "image":"//localhost:1313/projects/obsidian-publish-github-action/cover.jpg","datePublished": "0001-01-01T00:00:00Z",
+  "image":"http://localhost:1313/projects/obsidian-publish-github-action/cover.jpg","datePublished": "0001-01-01T00:00:00Z",
   "dateModified": "0001-01-01T00:00:00Z",
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "//localhost:1313/projects/obsidian-publish-github-action/"
+    "@id": "http://localhost:1313/projects/obsidian-publish-github-action/"
   },
   "publisher": {
     "@type": "Organization",
-    "name": "Abdur Rahman",
+    "name": "Farog Basher",
     "logo": {
       "@type": "ImageObject",
-      "url": "//localhost:1313/favicon.ico"
+      "url": "http://localhost:1313/favicon.ico"
     }
   }
 }
@@ -137,7 +137,7 @@
 <header class="header sticky-header">
     <nav class="nav">
         <div class="logo">
-            <a href="//localhost:1313/" accesskey="h" title="Abdur Rahman (Alt + H)">Abdur Rahman</a>
+            <a href="http://localhost:1313/" accesskey="h" title="Farog Basher (Alt + H)">Farog Basher</a>
             <span class="logo-switches">
                 <button id="theme-toggle" accesskey="t" title="(Alt + T)">
                     <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -165,27 +165,27 @@
         </div>
         <ul id="menu">
             <li>
-                <a href="//localhost:1313/" title="Home">
+                <a href="http://localhost:1313/" title="Home">
                     <span>Home</span>
                 </a>
             </li>
             <li>
-                <a href="//localhost:1313/blog" title="Blog">
+                <a href="http://localhost:1313/blog" title="Blog">
                     <span>Blog</span>
                 </a>
             </li>
             <li>
-                <a href="//localhost:1313/projects" title="Projects">
+                <a href="http://localhost:1313/projects" title="Projects">
                     <span>Projects</span>
                 </a>
             </li>
             <li>
-                <a href="//localhost:1313/experience" title="Experience">
+                <a href="http://localhost:1313/experience" title="Experience">
                     <span>Experience</span>
                 </a>
             </li>
             <li>
-                <a href="//localhost:1313/search" title="Search (Alt &#43; /)" accesskey=/>
+                <a href="http://localhost:1313/search" title="Search (Alt &#43; /)" accesskey=/>
                     <span>Search</span>
                 </a>
             </li>
@@ -196,7 +196,7 @@
 
 <article class="post-single">
   <header class="post-header">
-    <div class="breadcrumbs"><a href="//localhost:1313/">Home</a>&nbsp;»&nbsp;<a href="//localhost:1313/projects/">Projects</a></div>
+    <div class="breadcrumbs"><a href="http://localhost:1313/">Home</a>&nbsp;»&nbsp;<a href="http://localhost:1313/projects/">Projects</a></div>
     <h1 class="post-title">
       Obsidian Publish using GitHub Action
     </h1>
@@ -210,7 +210,7 @@ June 2022
 
 </div>
   </header> 
-<figure class="entry-cover"><img loading="lazy" src="//localhost:1313/projects/obsidian-publish-github-action/cover.jpg" alt="">
+<figure class="entry-cover"><img loading="lazy" src="http://localhost:1313/projects/obsidian-publish-github-action/cover.jpg" alt="">
         
 </figure><div class="toc">
     <details >
@@ -258,21 +258,21 @@ June 2022
 
   <footer class="post-footer">
     <ul class="post-tags">
-      <li><a href="//localhost:1313/tags/aws/">AWS</a></li>
-      <li><a href="//localhost:1313/tags/regex/">RegEx</a></li>
-      <li><a href="//localhost:1313/tags/mkdocs/">MkDocs</a></li>
-      <li><a href="//localhost:1313/tags/github-action/">GitHub Action</a></li>
-      <li><a href="//localhost:1313/tags/docker/">Docker</a></li>
-      <li><a href="//localhost:1313/tags/bash/">Bash</a></li>
-      <li><a href="//localhost:1313/tags/typescript/">TypeScript</a></li>
-      <li><a href="//localhost:1313/tags/node.js/">Node.JS</a></li>
+      <li><a href="http://localhost:1313/tags/aws/">AWS</a></li>
+      <li><a href="http://localhost:1313/tags/regex/">RegEx</a></li>
+      <li><a href="http://localhost:1313/tags/mkdocs/">MkDocs</a></li>
+      <li><a href="http://localhost:1313/tags/github-action/">GitHub Action</a></li>
+      <li><a href="http://localhost:1313/tags/docker/">Docker</a></li>
+      <li><a href="http://localhost:1313/tags/bash/">Bash</a></li>
+      <li><a href="http://localhost:1313/tags/typescript/">TypeScript</a></li>
+      <li><a href="http://localhost:1313/tags/node.js/">Node.JS</a></li>
     </ul>
   </footer>
 </article>
     </main>
     
 <footer class="footer">
-    <span>&copy; 2024 <a href="//localhost:1313/">Abdur Rahman</a></span>
+    <span>&copy; 2024 <a href="http://localhost:1313/">Farog Basher</a></span>
 </footer>
 <a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
